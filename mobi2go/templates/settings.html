@@ -1,0 +1,19 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% set title = "Mobi2Go"|t %}
+
+
+{% set content %}
+    <h2>Mobi2Go Plugin Settings</h2>
+    <p>In order to integrate your Mobi2Go store into your website the you will need to enter below the store name and API key from your Mobi2Go Settings page.</p>
+    <p>
+      <label for="storeName">Store Name</label>
+      <input type="text" name="storeName" value="">
+    </p>
+    <p>
+      <label for="apiKey">API Key</label>
+      <input type="text" name="apiKey" value="">
+    </p>
+    
+{% endset %}
