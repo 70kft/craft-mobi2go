@@ -2,18 +2,47 @@
 {% import "_includes/forms" as forms %}
 
 {% set title = "Mobi2Go"|t %}
+{% set plugin = craft.plugins.getPlugin('Mobi2Go') %}
+{% set pluginSettings = craft.mobi2Go.getSettings() %}
+
+{% block content %}
+  <h2>Mobi2Go Instructions</h2>
+  <p>In order to embed your Mobi2Go store, follow these steps:</p>
+  <ol>
+    <li>Fill in settings below</li>
+    <li>Place the variable <code>&lbrace;&lbrace; craft.mobi2Go.mobi2GoContainer &rbrace;&rbrace;</code> in your template where you want your store to be rendered. <br>This placement must be inside the <code>&lt;body&gt;</code> tag.</li>
+  </ol>
+
+  <hr>
+
+  <form action="" method="POST" data-saveshortcut>
+    <input type="hidden" name="action" value="plugins/savePluginSettings">
+    <input type="hidden" name="pluginClass" value="{{ plugin.classHandle }}">
+    <input type="hidden" name="redirect" value="mobi2go/settings">
+    {{ getCsrfInput() }}
 
 
-{% set content %}
     <h2>Mobi2Go Plugin Settings</h2>
     <p>In order to integrate your Mobi2Go store into your website the you will need to enter below the store name and API key from your Mobi2Go Settings page.</p>
-    <p>
-      <label for="storeName">Store Name</label>
-      <input type="text" name="storeName" value="">
-    </p>
-    <p>
-      <label for="apiKey">API Key</label>
-      <input type="text" name="apiKey" value="">
-    </p>
+
+    {{ forms.textField({
+      class: 'code',
+      instructions: 'Add the store name used when setting up your Mobi2Go account.',
+      label: 'Store Name',
+      name: 'settings[storeName]',
+      value: pluginSettings.storeName is defined ? pluginSettings.storeName : ''
+    }) }}
+
+    {{ forms.textField({
+      class: 'code',
+      instructions: 'Add the API Key from the settings page from your Mobi2Go account.',
+      label: 'API Key',
+      name: 'settings[apiKey]',
+      value: pluginSettings.apiKey is defined ? pluginSettings.apiKey : ''
+    }) }}
+
+    <hr>
+    <input type="submit" value="Save Settings" class="btn submit">
+  </form>
     
-{% endset %}
+{% endblock %}
